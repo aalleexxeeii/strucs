@@ -74,7 +74,7 @@ object ComposeCodec {
       q"comp.prepend(${implicitCodec(tpe.asInstanceOf[Type])}, $tree)"
     }
     val codec = q"val comp = implicitly[strucs.ComposeCodec[$codecSymbol]]; $composed.asInstanceOf[$codecSymbol[Struct[${typeTag.tpe}]]]"
-    //info("codec = "+codec.toString)
+    info("codec = "+codec.toString)
     codec
   }
 

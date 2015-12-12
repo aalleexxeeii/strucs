@@ -57,6 +57,17 @@ class CodecJsonSpec  extends FlatSpec with Matchers with TypeCheckedTripleEquals
 
     dperson shouldBe \/-(expected)
   }
+
+
+  "a DecodeJson" should "decode a Person with an Address" in {
+    val json = """{"line1":"52 Upper Street","postCode":"N1 0QH", "name":"Albert","age":76,"city":"Princeton","gender":"M"}"""
+    val dperson = json.decodeEither[Struct[Name with Age with City with Gender with AddressStruct]]
+
+    val address = Struct.empty + Line1("52 Upper Street") + PostCode("N1 0QH")
+    val expected = person + address
+
+    dperson shouldBe \/-(expected)
+  }
 }
 
 object CodecJsonSpec {
